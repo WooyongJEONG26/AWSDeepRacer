@@ -10,13 +10,13 @@ def speeding_when_straight(steering_angle, heading,speed):
 
 
 def reward_function(params):
-    '''
+    """
     1. keep it center(don't steer to much)
     2. when it needs to go to straight speed up
     :param params: track_width, distance_from_center
                     steering_angle, speed, heading
     :return: reward
-    '''
+    """
     # var
     # all float
     track_width = params['track_width']
