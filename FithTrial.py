@@ -1,3 +1,14 @@
+def speeding_when_straight(steering_angle, heading,speed):
+    # speed up when it goes straight
+    # when steering_angle and heading are 0 degree
+    # and speed is more than 2.0
+    reward = 0
+    if steering_angle == 0 and \
+            heading == 0 and speed > 2.0:
+        reward += 0.5
+    return reward
+
+
 def reward_function(params):
     '''
     1. keep it center(don't steer to much)
@@ -21,25 +32,12 @@ def reward_function(params):
     marker_2 = 0.25 * track_width
     marker_3 = 0.5 * track_width
     if distance_from_center <= marker_1:
-        if -1.0 < steering_angle < 1.0:
-            reward += 0.3
         reward += 1.0
     elif distance_from_center <= marker_2:
-        if -1.0 < steering_angle < 1.0:
-            reward += 0.3
         reward += 0.5
     elif distance_from_center <= marker_3:
-        if -1.0 < steering_angle < 1.0:
-            reward += 0.3
         reward += 0.1
     else:
         reward += 1e-3
-
-    # speed up when it goes straight
-    # when steering_angle and heading are 0 degree
-    # and speed is more than 1 and less than 3
-    if steering_angle == 0 and \
-            heading == 0 and \
-            1.0 < speed < 3.0:
-        reward += 0.3
+    reward += speeding_when_straight(steering_angle, heading, speed)
     return float(reward)
