@@ -1,3 +1,4 @@
+# Using trig function to calculate it
 def speeding_when_straight(steering_angle, heading,speed):
     # speed up when it goes straight
     # when steering_angle and heading are 0 degree
@@ -21,7 +22,7 @@ def reward_function(params):
     # all float
     track_width = params['track_width']
     distance_from_center = params['distance_from_center']
-    steering_angle  = params['steering_angle']
+    steering_angle = params['steering_angle']
     speed = params['speed']
     heading = params['heading']
     # reward var float
