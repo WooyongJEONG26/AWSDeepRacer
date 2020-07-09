@@ -1,12 +1,15 @@
 # Using trig function to calculate it
-def speeding_when_straight(steering_angle, heading,speed):
+import math
+def speeding_when_straight(waypoint, x,y):
     # speed up when it goes straight
     # when steering_angle and heading are 0 degree
     # and speed is more than 2.0
+    # using rules of second cosine something forgot
     reward = 0
-    if steering_angle == 0 and \
-            heading == 0 and speed > 2.0:
-        reward += 0.5
+    a = math.sqrt((waypoint[0] - x)**2 + (waypoint[1] - (y-0.3))**2)
+    b = 0.3
+    c = math.sqrt((waypoint[0] - x)**2 + (waypoint[1] - y)**2)
+    A = math.acos(((b**2 + c**2)-a**2)/(2*b*c))
     return reward
 
 
@@ -20,11 +23,16 @@ def reward_function(params):
     """
     # var
     # all float
+    # adding waypoints, x and y 20200708
     track_width = params['track_width']
     distance_from_center = params['distance_from_center']
     steering_angle = params['steering_angle']
     speed = params['speed']
     heading = params['heading']
+    closest_waypoints = params['closest_waypoints']
+    waypoint_ahead = closest_waypoints[1]
+    x = params['x']
+    y = params['y']
     # reward var float
     reward = 0.0
     # keeping it center
@@ -40,5 +48,7 @@ def reward_function(params):
         reward += 0.1
     else:
         reward += 1e-3
-    reward += speeding_when_straight(steering_angle, heading, speed)
+    reward += speeding_when_straight(waypoint_ahead,
+                                     x,
+                                     y)
     return float(reward)
