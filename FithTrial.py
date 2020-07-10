@@ -1,5 +1,10 @@
 # Using trig function to calculate it
 import math
+
+# fixed the function
+# now I know the degrees to know whether the agent goes straight line
+# need to know for when to -0.3 or +0.3 for extended point from the agent
+# good job
 def speeding_when_straight(waypoint, x,y):
     # speed up when it goes straight
     # when steering_angle and heading are 0 degree
@@ -10,6 +15,9 @@ def speeding_when_straight(waypoint, x,y):
     b = 0.3
     c = math.sqrt((waypoint[0] - x)**2 + (waypoint[1] - y)**2)
     A = math.acos(((b**2 + c**2)-a**2)/(2*b*c))
+    result = A*(180/math.pi)
+    if result <= 92 and result >= 88:
+        reward += 0.5
     return reward
 
 
